@@ -29,4 +29,4 @@ function reverse(arrayOfChars) {
     rightIndex--;
   }
 }
-/*
+*/
