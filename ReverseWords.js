@@ -27,6 +27,8 @@ const example = ['c', 'a', 'k', 'e', ' ',
 
 console.log(reverseWords(example));
 
+// Complexity: O(n) time and O(1) space
+
 /*
 function reverseWords(message) {
 
