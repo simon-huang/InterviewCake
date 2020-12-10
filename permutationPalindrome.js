@@ -1,4 +1,21 @@
 function hasPalindromePermutation(theString) {
+    let oddLetters = new Set();
+    for (let char of theString) {
+        if (oddLetters.has(char)) {
+            oddLetters.delete(char);
+        } else {
+            oddLetters.add(char);
+        }
+    }
+    return oddLetters.size <= 1;
+}
+
+//O(n) time, and O(1) space (only 128 ASCII characters)
+
+console.log(hasPalindromePermutation('aabccbdd')) //true
+console.log(hasPalindromePermutation('aabcd')) //false
+/*
+function hasPalindromePermutation(theString) {
     // Check if any permutation of the input is a palindrome
     var tally = {};
     var odd = 0;
@@ -15,6 +32,4 @@ function hasPalindromePermutation(theString) {
     }
     return true;
 }
-
-console.log(hasPalindromePermutation('aabccbdd')) //true
-console.log(hasPalindromePermutation('aabcd')) //false
+*/
