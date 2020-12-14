@@ -21,3 +21,5 @@ function canTwoMoviesFillFlight(movieLengths, flightLength) {
     }
     return false;
 }
+
+//O(n) time and O(n) space
