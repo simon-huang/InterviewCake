@@ -1,25 +1,26 @@
 function mergeRanges(meetings) {
-  meetings.sort(function(a,b){
+  meetings.sort(function (a, b) {
     return a.startTime - b.startTime;
   })
   var solution = [meetings[0]];
-  for (var i = 1; i < meetings.length; i++){
-    if (meetings[i].startTime <= solution[solution.length-1].endTime) {
-        solution[solution.length-1].endTime = Math.max(solution[solution.length-1].endTime, meetings[i].endTime);
+  for (var i = 1; i < meetings.length; i++) {
+    if (meetings[i].startTime <= solution[solution.length - 1].endTime) {
+      solution[solution.length - 1].endTime = Math.max(solution[solution.length - 1].endTime, meetings[i].endTime);
     } else {
-        solution.push(meetings[i]);
+      solution.push(meetings[i]);
     }
     // console.log(solution);
   }
   return solution;
 }
+//O(n log n) time and O(n) space
 
 var example = [
-  { startTime: 0,  endTime: 1 },
-  { startTime: 3,  endTime: 5 },
-  { startTime: 4,  endTime: 8 },
+  { startTime: 0, endTime: 1 },
+  { startTime: 3, endTime: 5 },
+  { startTime: 4, endTime: 8 },
   { startTime: 10, endTime: 12 },
-  { startTime: 9,  endTime: 10 },
+  { startTime: 9, endTime: 10 },
 ];
 console.log(mergeRanges(example));
 
