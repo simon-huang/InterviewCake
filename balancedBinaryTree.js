@@ -18,13 +18,39 @@ class BinaryTreeNode {
 
 function isBalanced(treeRoot) {
     // Determine if the tree is superbalanced
-
-
-    return false;
+    if (!treeRoot) {
+        return true;
+    }
+    let depths = [];
+    let stack = [[treeRoot, 0]];
+    while (stack.length) {
+        let current = stack.pop();
+        let node = current[0];
+        let depth = current[1];
+        if (!node.left && !node.right) {
+            if (depths.indexOf(depth) == -1) {
+                depths.push(depth);
+                if (depths.length > 2) {
+                    return false;
+                }
+            }
+            if (depths.length == 2 && Math.abs(depths[0] - depths[1]) > 1) {
+                return false;
+            }
+        } else {
+            if (node.left) {
+                stack.push([node.left, depth + 1]);
+            }
+            if (node.right) {
+                stack.push([node.right, depth + 1]);
+            }
+        }
+    }
+    return true;
 }
+//O(n) time and space, if we have to check every node and if the tree is very imbalanced
 
 // Tests
-
 let desc = 'full tree';
 let treeRoot = new BinaryTreeNode(5);
 let leftNode = treeRoot.insertLeft(8);
