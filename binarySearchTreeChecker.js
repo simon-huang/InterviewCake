@@ -22,6 +22,9 @@ function isBinarySearchTree(treeRoot) {
         if (node == null) {
             return true;
         }
+        //Or set default lower bound to negative infinity
+        //And default upper to positive infinity
+        //And always check whether the value is in bounds
         if (smaller != null && !(node.value < smaller)) {
             return false;
         }
@@ -32,8 +35,30 @@ function isBinarySearchTree(treeRoot) {
     }
     return helper(treeRoot);
 }
-//O(n) time. Space is O(log n) because log base 2 of (n+1) is the height of the tree
-//and therefore maximum size of the call stack
+
+//Non-recursive solution just for practice
+function isBinarySearchTreeNoRecursion(treeRoot) {
+    if (!treeRoot) {
+        return true;
+    }
+    let stack = [];
+    stack.push([treeRoot, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY]);
+    while (stack.length) {
+        let [node, lower, upper] = stack.pop();
+        if (node.value < lower || node.value > upper) {
+            return false;
+        }
+        if (node.left) {
+            stack.push([node.left, lower, node.value]);
+        }
+        if (node.right) {
+            stack.push([node.right, node.value, upper]);
+        }
+    }
+    return true;
+}
+//O(n) time and space. But if we know for sure the tree is balanced, space is O(log n)
+//in DFS, because log base 2 of (n+1) is the height of the tree
 
 // Tests
 
