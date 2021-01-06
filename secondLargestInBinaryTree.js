@@ -1,7 +1,7 @@
 class BinaryTreeNode {
   constructor(value) {
     this.value = value;
-    this.left  = null;
+    this.left = null;
     this.right = null;
   }
 
@@ -18,13 +18,36 @@ class BinaryTreeNode {
 
 function findSecondLargest(treeRoot) {
   // Find the second largest item in the binary search tree
-  
-
+  if (!treeRoot || (!treeRoot.left && !treeRoot.right)) {
+    throw new Error('Less than two nodes');
+  }
+  let current = treeRoot;
+  while (current) {
+    // If current is the largest and has a left subtree
+    // Then 2nd largest is the largest in that subtree
+    if (current.left && !current.right) {
+      current = current.left;
+      while (current) {
+        if (!current.right) {
+          return current.value;
+        }
+        current = current.right;
+      }
+    }
+    // If current is the parent of the largest
+    // And the largest has no children, current is 2nd largest
+    if (current.right && (!current.right.left && !current.right.right)) {
+      return current.value;
+    }
+    current = current.right;
+  }
   return null;
 }
+//O(h) time, since we do one pass down the height of the tree
+//which is O(n) in worst case or O(lg n) in balanced tree
+//O(1) space
 
 // Tests
-
 let desc = 'full tree';
 let treeRoot = new BinaryTreeNode(50);
 let leftNode = treeRoot.insertLeft(30);
