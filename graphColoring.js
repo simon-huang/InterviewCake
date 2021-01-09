@@ -9,6 +9,9 @@ class GraphNode {
 function colorGraph(graph, colors) {
     // Create a valid coloring for the graph
     graph.forEach(node => {
+        if (node.neighbors.has(node)) {
+            throw new Error(`There's a loop`);
+        }
         let neighborColors = new Set();
         node.neighbors.forEach(neighbor => {
             if (neighbor.color !== null) {
@@ -22,9 +25,9 @@ function colorGraph(graph, colors) {
             }
         }
     });
-
 }
-
+// O(N + M) time, where N is the number of nodes and M is the number of edges
+// O(D) space, where D is the maximum degree
 
 // Tests
 const colors = ['red', 'green', 'blue', 'orange', 'yellow', 'white'];
