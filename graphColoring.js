@@ -8,7 +8,20 @@ class GraphNode {
 
 function colorGraph(graph, colors) {
     // Create a valid coloring for the graph
-
+    graph.forEach(node => {
+        let neighborColors = new Set();
+        node.neighbors.forEach(neighbor => {
+            if (neighbor.color !== null) {
+                neighborColors.add(neighbor.color);
+            }
+        });
+        for (let i = 0; i < colors.length; i++) {
+            if (!neighborColors.has(colors[i])) {
+                node.color = colors[i];
+                break;
+            }
+        }
+    });
 
 }
 
