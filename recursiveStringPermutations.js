@@ -1,7 +1,19 @@
 function getPermutations(string) {
     // Generate all permutations of the input string
-
-    return new Set();
+    if (string.length <= 1) {
+        return new Set([string]);
+    }
+    let allCharsExceptLast = string.slice(0, -1);
+    let lastChar = string.slice(-1);
+    let permutationsOfAllCharsExceptLast = getPermutations(allCharsExceptLast);
+    let permutations = new Set();
+    permutationsOfAllCharsExceptLast.forEach(incompletePermutation => {
+        for (let position = 0; position <= allCharsExceptLast.length; position++) {
+            let permutation = incompletePermutation.slice(0, position) + lastChar + incompletePermutation.slice(position);
+            permutations.add(permutation);
+        }
+    });
+    return permutations;
 }
 
 // Tests
