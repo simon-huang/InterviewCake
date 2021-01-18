@@ -1,8 +1,25 @@
 function changePossibilities(amountLeft, denominations) {
     // Calculate the number of ways to make change
-
-
-    return 0;
+    let result = 0;
+    let combos = new Set();
+    function helper(amountLeft, arr) {
+        if (amountLeft == 0) {
+            if (!combos.has(arr.sort())) {
+                result++;
+                combos.add(arr.sort());
+            }
+            return;
+        }
+        for (let i = 0; i < denominations.length; i++) {
+            if (amountLeft - denominations[i] >= 0) {
+                arr.push(denominations[i]);
+                helper(amountLeft - denominations[i], arr);
+                arr.pop();
+            }
+        }
+    }
+    helper(amountLeft, []);
+    return result;
 }
 
 // Tests
