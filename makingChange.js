@@ -1,7 +1,12 @@
+// DP
 function changePossibilities(amountLeft, denominations) {
+
+}
+
+// DFS
+function changePossibilities2(amountLeft, denominations) {
     // Calculate the number of ways to make change
     let result = 0;
-    let combos = new Set();
     function helper(amountLeft, denominations, index) {
         if (amountLeft == 0) {
             result++;
@@ -10,6 +15,8 @@ function changePossibilities(amountLeft, denominations) {
         for (let i = index; i < denominations.length; i++) {
             if (amountLeft - denominations[i] >= 0) {
                 helper(amountLeft - denominations[i], denominations, i);
+            } else {
+                break;
             }
         }
     }
