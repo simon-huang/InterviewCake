@@ -2,15 +2,22 @@
 
 class MaxStack {
     constructor() {
-
+        this.items = [];
+        this.max = null;
     }
 
     push(item) {
-
+        if (this.max == null || item > this.max) {
+            this.max = item;
+        }
+        this.items.push(item);
     }
 
     pop() {
-        return 0;
+        if (this.items.length == 0) {
+            return null;
+        }
+        return this.items.pop();
     }
 
     getMax() {
