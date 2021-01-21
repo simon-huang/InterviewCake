@@ -2,28 +2,31 @@
 
 class MaxStack {
     constructor() {
-        this.items = [];
-        this.max = null;
+        this.items = new Stack();
+        this.max = new Stack();
     }
 
     push(item) {
-        if (this.max == null || item > this.max) {
-            this.max = item;
+        if (!this.max.peek() || item >= this.max.peek()) {
+            this.max.push(item);
         }
         this.items.push(item);
     }
 
     pop() {
-        if (this.items.length == 0) {
-            return null;
+        const item = this.items.pop();
+        if (item == this.max.peek()) {
+            this.max.pop();
         }
-        return this.items.pop();
+        return item;
     }
 
     getMax() {
-        return 0;
+        return this.max.peek();
     }
 }
+// O(1) time for push, pop, and getMax
+// O(m) space, where m is the number of operations performed on the stack
 
 class Stack {
     constructor() {
