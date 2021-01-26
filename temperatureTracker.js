@@ -1,47 +1,50 @@
-// Implement methods to track the max, min, mean, and mode
 class TempTracker {
     constructor() {
-        this.min = null;
-        this.max = null;
-        this.frequencyMap = {};
+        // For mode
+        this.occurrences = new Array(111).fill(0); // Array of 0s at indices 0..110
+        this.maxOccurrences = 0;
         this.mode = null;
-        this.total = 0;
-        this.count = 0;
+
+        // For mean
+        this.numberOfReadings = 0;
+        this.totalSum = 0;
+        this.mean = null;
+
+        // For min and max
+        this.minTemp = null;
+        this.maxTemp = null;
     }
 
     insert(temperature) {
-        if (this.min == null) {
-            this.min = temperature;
-            this.max = temperature;
-            this.frequencyMap[temperature] = 1;
+        // For mode
+        this.occurrences[temperature]++;
+        if (this.occurrences[temperature] > this.maxOccurrences) {
             this.mode = temperature;
-            this.total += temperature;
-            this.count++;
-            return;
+            this.maxOccurrences = this.occurrences[temperature];
         }
-        this.min = Math.min(this.min, temperature);
-        this.max = Math.max(this.max, temperature);
-        if (!this.frequencyMap.hasOwnProperty(temperature)) {
-            this.frequencyMap[temperature] = 0;
+        // For mean
+        this.numberOfReadings++;
+        this.totalSum += temperature;
+        this.mean = this.totalSum / this.numberOfReadings;
+        // For min and max
+        if (this.maxTemp === null || temperature > this.maxTemp) {
+            this.maxTemp = temperature;
         }
-        this.frequencyMap[temperature]++;
-        if (this.mode !== temperature && this.frequencyMap[this.mode] < this.frequencyMap[temperature]) {
-            this.mode = temperature;
+        if (this.minTemp === null || temperature < this.minTemp) {
+            this.minTemp = temperature;
         }
-        this.total += temperature;
-        this.count++;
     }
 
     getMax() {
-        return this.max;
+        return this.maxTemp;
     }
 
     getMin() {
-        return this.min;
+        return this.minTemp;
     }
 
     getMean() {
-        return this.total / this.count;
+        return this.mean;
     }
 
     getMode() {
