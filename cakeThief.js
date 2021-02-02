@@ -1,9 +1,24 @@
 function maxDuffelBagValue(cakeTypes, weightCapacity) {
     // Calculate the maximum value we can carry
 
-
-    return 0;
+    // Array to hold the maximum possible value at every
+    // integer capacity from 0 to weightCapacity
+    // starting each index with value 0
+    const maxValuesAtCapacities = new Array(weightCapacity + 1).fill(0);
+    // Every integer from 0 to the input weightCapacity
+    for (let currentCapacity = 0; currentCapacity <= weightCapacity; currentCapacity++) {
+        let currentMaxValue = 0;
+        cakeTypes.forEach(cakeType => {
+            if (cakeType.weight <= currentCapacity) {
+                const maxValueUsingCake = maxValuesAtCapacities[currentCapacity - cakeType.weight] + cakeType.value;
+                currentMaxValue = Math.max(currentMaxValue, maxValueUsingCake);
+            }
+        });
+        maxValuesAtCapacities[currentCapacity] = currentMaxValue;
+    }
+    return maxValuesAtCapacities[weightCapacity];
 }
+// O(n * k) time, and O(k) space, where n is number of types of cake and k is the capacity of the duffel bag
 
 // Tests
 let desc = 'one cake';
