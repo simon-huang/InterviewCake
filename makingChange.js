@@ -1,7 +1,16 @@
 // DP
-function changePossibilities(amountLeft, denominations) {
-
+function changePossibilities(amount, denominations) {
+    let dp = new Array(amount + 1).fill(0); // const waysOfDoingNcents
+    dp[0] = 1;
+    denominations.forEach(coin => {
+        for (let currentAmount = coin; currentAmount <= amount; currentAmount++) {
+            const remainingAmount = currentAmount - coin;
+            dp[currentAmount] += dp[remainingAmount];
+        }
+    });
+    return dp[amount];
 }
+// O(n * m) time and O(n) space, where n is the amount of money and m is the number of potential denominations
 
 // DFS
 function changePossibilities2(amountLeft, denominations) {
